@@ -14,12 +14,25 @@ function App() {
     setTasks([newTask].concat(tasks));
   };
 
+  const sortTasksByDate = (tasksToSort) => {
+    const sortedTasks = [];
+    for (let i = 0; i < tasksToSort.length; i++) {
+      sortedTasks[i] = tasksToSort[i];
+    }
+    sortedTasks.sort(function(a, b) {
+      return new Date(a.deadline) - new Date(b.deadline);
+    });
+    return sortedTasks;
+  };
+
+  const sortedTasks = sortTasksByDate(tasks);
+
   return (
     <div className="app">
-      <h1>Дедлайны заданий</h1>
+      <h1>Дедлайн заданий</h1>
       <TaskForm onAddTask={addTask} />
       <ol className="tasks-list">
-        {tasks.map((task, index) => (
+        {sortedTasks.map((task, index) => (
           <li key={task.id} className="task-item">
             <span className="task-title">{task.title}</span>
             <span className="task-deadline">{task.deadline}</span>
