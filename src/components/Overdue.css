@@ -1,8 +1,37 @@
-.overdue-item {
-  margin-bottom: 15px;
+.overdue-list {
+  list-style-type: decimal;
+  padding-left: 30px;
 }
 
-.overdue-warning {
-  background-color: red;
-  color: white;
+.overdue-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overdue-item.overdue-warning {
+  background-color: rgb(242, 207, 207);
+}
+
+.overdue-title {
+  font-weight: bold;
+  color: black;
+}
+
+.overdue-item.overdue-warning .overdue-title {
+  color: red;
+}
+
+.overdue-deadline {
+  color: gray;
+  font-size: 14px;
+}
+
+.overdue-item.overdue-warning .overdue-deadline {
+  color: red;
+  font-weight: bold;
 }
