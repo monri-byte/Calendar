@@ -1,0 +1,8 @@
+.overdue-item {
+  margin-bottom: 15px;
+}
+
+.overdue-warning {
+  background-color: red;
+  color: white;
+}
