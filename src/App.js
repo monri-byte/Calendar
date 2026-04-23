@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import './App.css';
 import TaskForm from './components/TaskForm';
+import TaskFilter from './components/TaskFilter';
 import Overdue from './components/Overdue';
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState('all');
 
   const addTask = (title, deadline) => {
     const newTask = {
@@ -16,10 +17,11 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div>
       <h1>Дедлайн заданий</h1>
       <TaskForm onAddTask={addTask} />
-      <Overdue tasks={tasks} />
+      <TaskFilter filter={filter} onFilterChange={setFilter} />
+      <Overdue tasks={tasks} filter={filter} />
     </div>
   );
 }

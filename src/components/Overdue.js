@@ -1,7 +1,7 @@
 import React from 'react';
 import './Overdue.css';
 
-const Overdue = ({ tasks }) => {
+const Overdue = ({ tasks, filter }) => {
   const getCurrentDate = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -15,6 +15,42 @@ const Overdue = ({ tasks }) => {
     return taskDeadline < today;
   };
 
+  const isCurrentWeek = (deadline) => {
+    const taskDate = new Date(deadline);
+    taskDate.setHours(0, 0, 0, 0);
+    const today = getCurrentDate();
+    
+    const dayOfWeek = today.getDay();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - dayOfWeek);
+    startOfWeek.setHours(0, 0, 0, 0);
+    
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+    
+    return taskDate >= startOfWeek && taskDate <= endOfWeek;
+  };
+
+  const filterTasks = (tasksToFilter) => {
+    const filtered = [];
+    for (let i = 0; i < tasksToFilter.length; i++) {
+      const task = tasksToFilter[i];
+      if (filter === 'all') {
+        filtered[filtered.length] = task;
+      } else if (filter === 'week') {
+        if (isCurrentWeek(task.deadline)) {
+          filtered[filtered.length] = task;
+        }
+      } else if (filter === 'overdue') {
+        if (isOverdue(task.deadline)) {
+          filtered[filtered.length] = task;
+        }
+      }
+    }
+    return filtered;
+  };
+
   const sortTasksByDate = (tasksToSort) => {
     const sortedTasks = [];
     for (let i = 0; i < tasksToSort.length; i++) {
@@ -26,20 +62,19 @@ const Overdue = ({ tasks }) => {
     return sortedTasks;
   };
 
-  const sortedTasks = sortTasksByDate(tasks);
+  const filteredTasks = filterTasks(tasks);
+  const sortedTasks = sortTasksByDate(filteredTasks);
 
   return (
-    <ol className="overdue-list">
-      {sortedTasks.map((task, index) => (
-        <li 
-          key={task.id} 
-          className={isOverdue(task.deadline) ? 'overdue-item overdue-warning' : 'overdue-item'}
-        >
-          <span className="overdue-title">{task.title}</span>
-          <span className="overdue-deadline">{task.deadline}</span>
-        </li>
-      ))}
-    </ol>
+    <div>
+      <ol>
+        {sortedTasks.map((task, index) => (
+          <li key={task.id}>
+            {task.title} - {task.deadline}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 };
 
