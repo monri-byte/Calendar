@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import TaskForm from './components/TaskForm';
 import TaskFilter from './components/TaskFilter';
 import Overdue from './components/Overdue';
@@ -17,7 +18,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app">
       <h1>Дедлайн заданий</h1>
       <TaskForm onAddTask={addTask} />
       <TaskFilter filter={filter} onFilterChange={setFilter} />

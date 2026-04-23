@@ -66,15 +66,17 @@ const Overdue = ({ tasks, filter }) => {
   const sortedTasks = sortTasksByDate(filteredTasks);
 
   return (
-    <div>
-      <ol>
-        {sortedTasks.map((task, index) => (
-          <li key={task.id}>
-            {task.title} - {task.deadline}
-          </li>
-        ))}
-      </ol>
-    </div>
+    <ol className="overdue-list">
+      {sortedTasks.map((task, index) => (
+        <li 
+          key={task.id} 
+          className={isOverdue(task.deadline) ? 'overdue-item overdue-warning' : 'overdue-item'}
+        >
+          <span className="overdue-title">{task.title}</span>
+          <span className="overdue-deadline">{task.deadline}</span>
+        </li>
+      ))}
+    </ol>
   );
 };
 
