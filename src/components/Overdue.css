@@ -20,6 +20,7 @@
 .overdue-title {
   font-weight: bold;
   color: black;
+  flex: 1;
 }
 
 .overdue-item.overdue-warning .overdue-title {
@@ -29,6 +30,7 @@
 .overdue-deadline {
   color: black;
   font-size: 14px;
+  margin-right: 15px;
 }
 
 .overdue-item.overdue-warning .overdue-deadline {
