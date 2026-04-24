@@ -1,7 +1,6 @@
 import React from 'react';
-import './Overdue.css';
 
-const Overdue = ({ tasks, filter }) => {
+const Overdue = ({ tasks, filter, onDeleteTask }) => {
   const getCurrentDate = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -66,17 +65,18 @@ const Overdue = ({ tasks, filter }) => {
   const sortedTasks = sortTasksByDate(filteredTasks);
 
   return (
-    <ol className="overdue-list">
-      {sortedTasks.map((task, index) => (
-        <li 
-          key={task.id} 
-          className={isOverdue(task.deadline) ? 'overdue-item overdue-warning' : 'overdue-item'}
-        >
-          <span className="overdue-title">{task.title}</span>
-          <span className="overdue-deadline">{task.deadline}</span>
-        </li>
-      ))}
-    </ol>
+    <div>
+      <ol>
+        {sortedTasks.map((task, index) => (
+          <li key={task.id}>
+            {task.title} - {task.deadline}
+            <button onClick={() => onDeleteTask(task.id)}>
+              Удалить
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 };
 

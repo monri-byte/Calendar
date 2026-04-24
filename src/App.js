@@ -18,13 +18,23 @@ function App() {
     setTasks([newTask].concat(tasks));
   };
 
+  const deleteTask = (taskId) => {
+    const newTasks = [];
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id !== taskId) {
+        newTasks[newTasks.length] = tasks[i];
+      }
+    }
+    setTasks(newTasks);
+  };
+
   return (
     <div className="app">
       <h1>Дедлайн заданий</h1>
       <CurrentDate />
       <TaskForm onAddTask={addTask} />
       <TaskFilter filter={filter} onFilterChange={setFilter} />
-      <Overdue tasks={tasks} filter={filter} />
+      <Overdue tasks={tasks} filter={filter} onDeleteTask={deleteTask} />
     </div>
   );
 }
