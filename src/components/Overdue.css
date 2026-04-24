@@ -35,3 +35,13 @@
   color: red;
   font-weight: bold;
 }
+
+.delete-btn {
+  padding: 5px 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
